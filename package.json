@@ -1,0 +1,44 @@
+{
+  "name": "assisthealth-admin",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/styled": "^11.14.0",
+    "@heroicons/react": "^2.2.0",
+    "@mui/icons-material": "^7.0.0",
+    "@reduxjs/toolkit": "^2.6.0",
+    "@uiw/react-md-editor": "^4.0.5",
+    "axios": "^1.8.4",
+    "chart.js": "^4.4.8",
+    "html2canvas": "^1.4.1",
+    "html2pdf.js": "^0.10.3",
+    "react": "^19.0.0",
+    "react-calendar": "^5.1.0",
+    "react-datepicker": "^8.2.1",
+    "react-dom": "^19.0.0",
+    "react-hook-form": "^7.54.2",
+    "react-hot-toast": "^2.5.2",
+    "react-icons": "^5.5.0",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^7.3.0",
+    "react-select": "^5.10.1",
+    "react-toastify": "^11.0.5",
+    "recharts": "^2.15.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^4.0.0",
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.21",
+    "tailwindcss": "^3.2.4",
+    "vite": "^4.0.0"
+  }
+}
