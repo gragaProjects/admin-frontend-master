@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = import.meta.env.VITE_API_URL || 'https://api.assisthealth.cloud';
+const BASE_URL = import.meta.env.VITE_API_URL ;
 
 // Create axios instance with default config
 const api = axios.create({
