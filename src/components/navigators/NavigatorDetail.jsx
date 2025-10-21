@@ -205,13 +205,13 @@ const NavigatorDetail = ({ navigator: initialNavigator, onClose, onDelete, onSuc
             {navigator.role === 'nurse' ? 'Nurse' : 'Navigator'} Profile
           </h3>
           <div className="flex gap-2">
-            <button 
+            {/* <button 
               onClick={handleDownload}
               className="p-2 hover:bg-blue-50 rounded-full text-blue-500 transition-colors"
               title="Download Profile PDF"
             >
               <FaDownload className="w-5 h-5" />
-            </button>
+            </button> */}
             <button 
               onClick={() => setShowDeleteConfirm(true)}
               className="p-2 hover:bg-red-50 rounded-full text-red-500 transition-colors"

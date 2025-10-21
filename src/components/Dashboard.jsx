@@ -228,7 +228,7 @@ const Dashboard = () => {
       </div>
 
       {/* Stats Grid */}
-      <h2 className="text-2xl font-semibold mb-6">Dashboard Overview</h2>
+      {/* <h2 className="text-2xl font-semibold mb-6">Dashboard Overview</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {stats.map((item) => (
           <div
@@ -266,10 +266,10 @@ const Dashboard = () => {
             </div>
           </div>
         ))}
-      </div>
+      </div> */}
 
       {/* Calendar Section */}
-      <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+      {/* <div className="bg-white rounded-xl shadow-lg overflow-hidden">
         <div className="p-6">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-semibold text-gray-800">Calendar</h2>
@@ -290,11 +290,11 @@ const Dashboard = () => {
                 <FaChevronRight className="w-5 h-5 text-gray-600" />
               </button>
             </div>
-          </div>
+          </div> */}
 
           {/* Calendar Grid */}
-          <div className="grid grid-cols-7 gap-2">
-            {/* Weekday headers */}
+          {/* <div className="grid grid-cols-7 gap-2">
+          
             {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
               <div
                 key={day}
@@ -302,10 +302,10 @@ const Dashboard = () => {
               >
                 {day}
               </div>
-            ))}
+            ))} */}
 
             {/* Calendar days */}
-            {getDaysInMonth(currentDate).map((day, index) => {
+            {/* {getDaysInMonth(currentDate).map((day, index) => {
               const events = day ? getEventsForDate(
                 currentDate.getFullYear(),
                 currentDate.getMonth(),
@@ -334,10 +334,10 @@ const Dashboard = () => {
                         : 'text-gray-700'}
                   `}>
                     {day}
-                  </div>
+                  </div> */}
                   
                   {/* Events List */}
-                  {events.length > 0 && (
+                  {/* {events.length > 0 && (
                     <div className="space-y-1">
                       {events.map((event, i) => (
                         <div 
@@ -364,7 +364,7 @@ const Dashboard = () => {
             })}
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -224,7 +224,7 @@ const NavigatorList = ({ searchTerm, setSearchTerm, setShowAddForm, setSelectedN
                 
 
                 <div className="mt-4 grid grid-cols-2 gap-2">
-                  <button 
+                  {/* <button 
                     onClick={() => {
                       setSelectedNavigator(item);
                       setShowAssignedMembers(true);
@@ -232,7 +232,7 @@ const NavigatorList = ({ searchTerm, setSearchTerm, setShowAddForm, setSelectedN
                     className="w-full bg-blue-50 hover:bg-blue-100 text-blue-700 py-2.5 rounded-xl transition-colors font-medium"
                   >
                     Assigned Members
-                  </button>
+                  </button> */}
                   <button 
                     onClick={() => setSelectedNavigator(item)}
                     className="w-full bg-gray-50 hover:bg-gray-100 text-gray-700 py-2.5 rounded-xl transition-colors font-medium"

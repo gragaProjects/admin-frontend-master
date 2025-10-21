@@ -39,7 +39,7 @@ const NavigatorsComponent = () => {
           >
             Navigators
           </button>
-          <button
+          {/* <button
             onClick={() => setActiveTab('nurses')}
             className={`${
               activeTab === 'nurses'
@@ -48,7 +48,7 @@ const NavigatorsComponent = () => {
             } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
           >
             Nurses
-          </button>
+          </button> */}
         </nav>
       </div>
     </div>
@@ -59,7 +59,7 @@ const NavigatorsComponent = () => {
       <div className="flex flex-col gap-6">
         {renderTabs()}
         
-        {activeTab === 'navigators' ? (
+     {activeTab === 'navigators' ? (
           <NavigatorList 
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}

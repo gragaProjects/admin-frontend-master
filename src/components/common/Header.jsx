@@ -76,7 +76,7 @@ const Header = ({ onLogout }) => {
           </h1>
         </div>
         <div className="flex items-center space-x-4">
-          <NotificationMenu />
+          {/* <NotificationMenu /> */}
           <div className="flex items-center space-x-3">
             <span className="text-sm text-gray-700 font-medium">{userProfile.name}</span>
             <ProfileMenu onLogout={onLogout} />

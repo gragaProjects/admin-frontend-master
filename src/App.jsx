@@ -85,14 +85,14 @@ function App() {
   const navigation = [
     { name: 'Dashboard', path: '/', icon: <FaChartBar />, color: 'text-purple-500' },
     { name: 'Navigators', path: '/navigators', icon: <FaCompass />, color: 'text-blue-500' },
-    { name: 'AH Doctors', path: '/doctors', icon: <FaUserMd />, color: 'text-green-500' },
-    { name: 'Members', path: '/members', icon: <FaUsers />, color: 'text-indigo-500' },
-    { name: 'AHANA', path: '/ahana', icon: <FaStar />, color: 'text-yellow-500' },
-    { name: 'Empanelled Doctors', path: '/empanelled-doctors', icon: <FaHospital />, color: 'text-teal-500' },
-    { name: 'Appointments', path: '/appointments', icon: <FaCalendarAlt />, color: 'text-red-500' },
-    { name: 'Blog', path: '/blog', icon: <FaBlog />, color: 'text-pink-500' },
-    { name: 'Ecommerce', path: '/ecommerce', icon: <FaShoppingCart />, color: 'text-orange-500' },
-    { name: 'Settings', path: '/settings', icon: <FaCog />, color: 'text-gray-500' },
+    // { name: 'AH Doctors', path: '/doctors', icon: <FaUserMd />, color: 'text-green-500' },
+    // { name: 'Members', path: '/members', icon: <FaUsers />, color: 'text-indigo-500' },
+    // { name: 'AHANA', path: '/ahana', icon: <FaStar />, color: 'text-yellow-500' },
+    // { name: 'Empanelled Doctors', path: '/empanelled-doctors', icon: <FaHospital />, color: 'text-teal-500' },
+    // { name: 'Appointments', path: '/appointments', icon: <FaCalendarAlt />, color: 'text-red-500' },
+    // { name: 'Blog', path: '/blog', icon: <FaBlog />, color: 'text-pink-500' },
+    // { name: 'Ecommerce', path: '/ecommerce', icon: <FaShoppingCart />, color: 'text-orange-500' },
+    // { name: 'Settings', path: '/settings', icon: <FaCog />, color: 'text-gray-500' },
   ];
 
   return (
