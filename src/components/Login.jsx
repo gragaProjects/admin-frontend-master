@@ -36,6 +36,10 @@ const Login = ({ onLogin }) => {
         
         // Normal login flow
         localStorage.setItem('token', response.data.tokens.accessToken);
+        // Decode token expiry 1.11.25
+        const payload = JSON.parse(atob(response.data.tokens.accessToken.split('.')[1]));
+        localStorage.setItem('tokenExpiry', payload.exp * 1000);
+              // Decode token expiry 1.11.25
         localStorage.setItem('refreshToken', response.data.tokens.refreshToken);
         localStorage.setItem('isAuthenticated', 'true');
         localStorage.setItem('user', JSON.stringify(response.data.user));

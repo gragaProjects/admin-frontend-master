@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route, NavLink, Navigate } from 'react-router-dom'
+import React, { useState, useEffect, } from 'react'
+import { BrowserRouter as Router, Routes, Route, NavLink, Navigate,useNavigate  } from 'react-router-dom'
 import { FaChevronLeft, FaChevronRight, FaChartBar, FaCompass, FaUserMd, FaUsers, 
   FaStar, FaHospital, FaCalendarAlt, FaBlog, FaShoppingCart, FaCog } from 'react-icons/fa'
 import './App.css'
@@ -38,7 +38,10 @@ const ProtectedRoute = ({ children }) => {
   return children;
 };
 
+
+
 function App() {
+   
   const [isSidebarExpanded, setSidebarExpanded] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('isAuthenticated') === 'true');
   const [userName, setUserName] = useState(() => {
@@ -49,6 +52,40 @@ function App() {
     }
     return 'Admin';
   });
+
+  //1.11.25
+  // 🔒 Auto logout after 30 minutes or token expiry
+ // 🕒 Auto logout after 30 minutes of inactivity
+useEffect(() => {
+  // Clear any old timer
+  let timeout;
+
+  // This function runs whenever user moves or types
+  const resetTimer = () => {
+    clearTimeout(timeout);
+    // Start a new 30-minute timer
+    timeout = setTimeout(() => {
+      localStorage.clear();
+      window.location.href = '/login'; // logout and redirect
+    }, 30 * 60 * 1000); // 30 minutes
+  };
+
+  // Listen for user activity
+  window.addEventListener('mousemove', resetTimer);
+  window.addEventListener('keydown', resetTimer);
+
+  // Start the first timer
+  resetTimer();
+
+  // Cleanup
+  return () => {
+    window.removeEventListener('mousemove', resetTimer);
+    window.removeEventListener('keydown', resetTimer);
+    clearTimeout(timeout);
+  };
+}, []);
+
+//1.11.25
 
   useEffect(() => {
     // Update userName when userProfile changes in localStorage

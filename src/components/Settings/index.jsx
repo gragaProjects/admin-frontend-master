@@ -5,7 +5,9 @@ import BasicSettings from './BasicSettings'
 import Utilities from './Utilities'
 
 const Settings = () => {
-  const [activeTab, setActiveTab] = useState('basic')
+  //const [activeTab, setActiveTab] = useState('basic') // old
+  const [activeTab, setActiveTab] = useState('utilities');
+
   const location = useLocation()
 
   useEffect(() => {
@@ -36,7 +38,7 @@ const Settings = () => {
 
       {/* Tab Content */}
       <div className="mt-4">
-        {activeTab === 'basic' && <BasicSettings />}
+        {/* {activeTab === 'basic' && <BasicSettings />} */}
         {activeTab === 'utilities' && <Utilities />}
       </div>
     </div>
