@@ -234,7 +234,7 @@ const NurseList = ({ searchTerm, setSearchTerm, setShowAddForm, setSelectedNavig
                 
 
                 <div className="mt-4 grid grid-cols-2 gap-2">
-                  <button 
+                  {/* <button 
                     onClick={() => {
                       setSelectedNavigator(item);
                       setShowAssignedStudents(true);
@@ -242,7 +242,7 @@ const NurseList = ({ searchTerm, setSearchTerm, setShowAddForm, setSelectedNavig
                     className="w-full bg-blue-50 hover:bg-blue-100 text-blue-700 py-2.5 rounded-xl transition-colors font-medium"
                   >
                     Assigned Students
-                  </button>
+                  </button> */}
                   <button 
                     onClick={() => handleViewProfile(item)}
                     className="w-full bg-gray-50 hover:bg-gray-100 text-gray-700 py-2.5 rounded-xl transition-colors font-medium"

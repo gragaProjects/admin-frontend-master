@@ -92,7 +92,7 @@ function App() {
     // { name: 'Appointments', path: '/appointments', icon: <FaCalendarAlt />, color: 'text-red-500' },
     // { name: 'Blog', path: '/blog', icon: <FaBlog />, color: 'text-pink-500' },
     // { name: 'Ecommerce', path: '/ecommerce', icon: <FaShoppingCart />, color: 'text-orange-500' },
-    // { name: 'Settings', path: '/settings', icon: <FaCog />, color: 'text-gray-500' },
+    { name: 'Settings', path: '/settings', icon: <FaCog />, color: 'text-gray-500' },
   ];
 
   return (

@@ -15,7 +15,7 @@ const Settings = () => {
   }, [location])
 
   const tabs = [
-    { id: 'basic', label: 'Basic Settings' },
+    // { id: 'basic', label: 'Basic Settings' },
     { id: 'utilities', label: 'Utilities' }
   ]
 
