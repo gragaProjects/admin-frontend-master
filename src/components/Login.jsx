@@ -84,36 +84,35 @@ const Login = ({ onLogin }) => {
     if (name === 'password') setPassword(value);
   };
 
-  return (
+ return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 py-12 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
-      <div className="max-w-6xl w-full bg-white rounded-xl shadow-lg flex overflow-hidden">
-        {/* Left side with image */}
-        <div className="w-1/2 p-12 flex items-center justify-center bg-gray-50">
+      <div className="max-w-6xl w-full bg-white rounded-xl shadow-lg md:flex overflow-hidden"> {/* Changed 'flex' to 'md:flex' */}
+        
+        {/* Left side with image - Hidden on mobile */}
+        <div className="w-full md:w-1/2 p-12 flex items-center justify-center bg-gray-50 hidden md:block"> 
           <img 
-            src="/assets/Secure login-amico.png" 
+            src="/assets/login_img.gif" 
             alt="Secure Login" 
             className="w-full h-auto max-w-lg object-contain transform scale-110"
           />
         </div>
 
-        {/* Dividing line */}
-        <div className="w-px bg-gray-200"></div>
+        {/* Dividing line - Hidden on mobile */}
+        <div className="hidden md:block w-px bg-gray-200"></div> 
 
         {/* Right side with form */}
-        <div className="w-1/2 p-8">
+        <div className="w-full md:w-1/2 p-12"> {/* Changed 'p-8' to 'p-12' for better mobile padding, changed 'w-1/2' to 'w-full md:w-1/2' */}
+        
         {/* Logo and Title */}
         <div className="text-center">
           <div className="flex justify-center">
             <img 
-              src="/assets/assist-health-logo.png" 
+              src="/assets/logo_new.png" 
               alt="AssistHealth" 
-              className="h-16 w-16 object-contain"
+              className=" object-contain"
+              style={{ width: 300  }} 
             />
           </div>
-          <h2 className="mt-4 text-3xl font-bold text-gray-900">
-            <span className="text-gray-800">Assist</span>
-            <span className="text-[#38B6FF]">Health</span>
-          </h2>
           <p className="mt-2 text-sm text-gray-600">
             Sign in to your admin account
           </p>
@@ -223,5 +222,6 @@ const Login = ({ onLogin }) => {
     </div>
   );
 };
+
 
 export default Login; 

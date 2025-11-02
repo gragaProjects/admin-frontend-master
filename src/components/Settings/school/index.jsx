@@ -396,6 +396,9 @@ const SchoolManagement = () => {
       // The response is directly what we need, not in response.data
       const responseData = response;
 
+      console.log(responseData);
+      
+
       // Validate the response structure
       if (!responseData || !responseData.success || !responseData.imageUrl) {
         console.error('Invalid response structure:', responseData);
