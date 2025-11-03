@@ -1,7 +1,8 @@
 import React, { useState, useEffect, } from 'react'
 import { BrowserRouter as Router, Routes, Route, NavLink, Navigate,useNavigate  } from 'react-router-dom'
-import { FaChevronLeft, FaChevronRight, FaChartBar, FaCompass, FaUserMd, FaUsers, 
-  FaStar, FaHospital, FaCalendarAlt, FaBlog, FaShoppingCart, FaCog } from 'react-icons/fa'
+import { FaBars, FaChevronLeft, FaChevronRight, FaChartBar, FaCompass, FaUserMd, FaUsers, 
+  FaStar, FaHospital, FaCalendarAlt, FaBlog, FaShoppingCart, FaCog } from 'react-icons/fa';
+
 import './App.css'
 import { SnackbarProvider } from './contexts/SnackbarContext'
 import { ToastContainer } from 'react-toastify'
@@ -118,18 +119,18 @@ useEffect(() => {
     setUserName('Admin');
     console.log('Logging out...');
   };
-
+  const iconColor = '#3ea767';
   const navigation = [
-    { name: 'Dashboard', path: '/', icon: <FaChartBar />, color: 'text-purple-500' },
-    { name: 'Navigators', path: '/navigators', icon: <FaCompass />, color: 'text-blue-500' },
+    { name: 'Dashboard', path: '/', icon: <FaChartBar  style={{ color: iconColor }}/>, color: '' },//text-purple-500
+    { name: 'Navigators', path: '/navigators', icon: <FaCompass  style={{ color: iconColor }}/>, color: '' },//text-blue-500
     // { name: 'AH Doctors', path: '/doctors', icon: <FaUserMd />, color: 'text-green-500' },
-    // { name: 'Members', path: '/members', icon: <FaUsers />, color: 'text-indigo-500' },
-    // { name: 'AHANA', path: '/ahana', icon: <FaStar />, color: 'text-yellow-500' },
+     { name: 'Members', path: '/members', icon: <FaUsers  style={{ color: iconColor }} />, color: '' },//text-indigo-500
+     { name: 'AHANA', path: '/ahana', icon: <FaStar  style={{ color: iconColor }} />, color: '' },//text-yellow-500
     // { name: 'Empanelled Doctors', path: '/empanelled-doctors', icon: <FaHospital />, color: 'text-teal-500' },
-    // { name: 'Appointments', path: '/appointments', icon: <FaCalendarAlt />, color: 'text-red-500' },
+     { name: 'Appointments', path: '/appointments', icon: <FaCalendarAlt  style={{ color: iconColor }} />, color: 'text-red-500' },
     // { name: 'Blog', path: '/blog', icon: <FaBlog />, color: 'text-pink-500' },
     // { name: 'Ecommerce', path: '/ecommerce', icon: <FaShoppingCart />, color: 'text-orange-500' },
-    { name: 'Settings', path: '/settings', icon: <FaCog />, color: 'text-gray-500' },
+    { name: 'Settings', path: '/settings', icon: <FaCog  style={{ color: iconColor }} />, color: 'text-gray-500' },
   ];
 
   return (
@@ -138,69 +139,92 @@ useEffect(() => {
         <div className="min-h-screen h-screen bg-gray-100">
           {isAuthenticated ? (
             <div className="flex h-screen overflow-hidden">
+              {/* Mobile Header */}
+              <div className="lg:hidden flex items-center justify-between bg-white p-3 shadow-md fixed top-0 left-0 right-0 z-30">
+                <div className="flex items-center gap-2">
+                  <button 
+                    onClick={() => setSidebarExpanded(!isSidebarExpanded)} 
+                    className="p-2 rounded-md hover:bg-gray-100"
+                  >
+                    <FaBars className="w-6 h-6 text-gray-700" />
+                  </button>
+                  <img src="/assets/logo_new.png" alt="AssistHealth" className="h-8 object-contain" />
+                </div>
+              </div>
               {/* Sidebar */}
-              <aside 
+              {/* <aside 
                 className={`flex bg-white shadow-lg flex-col fixed h-full transition-all duration-300 ease-in-out z-20
                   ${isSidebarExpanded ? 'w-72' : 'w-20'} mobile:hidden tablet:flex`}
-              >
-                {/* Logo Section */}
-                <div className="p-2 sm:p-4 border-b flex items-center justify-between">
-                  {isSidebarExpanded ? (
-                    <div className="flex items-center gap-2 sm:gap-3">
-                      <img 
-                        src="/assets/assist-health-logo.png" 
-                        alt="AssistHealth" 
-                        className="h-8 w-8 sm:h-10 sm:w-10 object-contain"
-                      />
-                      <div className="text-lg sm:text-xl font-semibold">
-                        <span className="text-gray-800">Assist</span>
-                        <span className="text-[#38B6FF]">Health</span>
-                      </div>
-                    </div>
-                  ) : (
-                    <img 
-                      src="/assets/assist-health-logo.png" 
-                      alt="AH" 
-                      className="h-8 w-8 sm:h-10 sm:w-10 object-contain"
-                    />
-                  )}
-                  <button 
-                    onClick={() => setSidebarExpanded(!isSidebarExpanded)}
-                    className="p-1.5 sm:p-2 rounded-full hover:bg-gray-100 transition-colors"
-                  >
-                    {isSidebarExpanded ? <FaChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" /> : <FaChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />}
-                  </button>
+              > */}
+            <aside 
+            className={`fixed inset-y-0 left-0 z-40 bg-white shadow-lg flex flex-col transform transition-transform duration-300 ease-in-out
+            ${isSidebarExpanded ? 'translate-x-0' : '-translate-x-full'}
+            lg:translate-x-0 ${isSidebarExpanded ? 'w-72' : 'w-20'}`}
+          >
+            {/* Logo Section */}
+            <div className="p-2 sm:p-4 border-b flex items-center justify-between">
+              {isSidebarExpanded ? (
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <img 
+                    src="/assets/logo_new.png" 
+                    alt="AssistHealth" 
+                    className="h-50 w-100 object-contain"
+                  />
                 </div>
+              ) : (
+                <img 
+                  src="/assets/logo_new.png" 
+                  alt="AH" 
+                  className="h-8 w-8 sm:h-10 sm:w-10 object-contain"
+                />
+              )}
+              <button 
+                onClick={() => setSidebarExpanded(!isSidebarExpanded)}
+                className="p-1.5 sm:p-2 rounded-full hover:bg-gray-100 transition-colors hidden lg:flex"
+              >
+                {isSidebarExpanded ? <FaChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" /> : <FaChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />}
+              </button>
+            </div>
 
-                {/* Navigation */}
-                <nav className="flex-1 overflow-y-auto p-4">
-                  <ul className="space-y-3">
-                    {navigation.map((item) => (
-                      <li key={item.path}>
-                        <NavLink
-                          to={item.path}
-                          className={({ isActive }) =>
-                            `flex items-center gap-4 px-4 py-3 rounded-lg transition-colors
-                            ${isActive
-                              ? 'bg-blue-50 text-blue-600 font-semibold'
-                              : 'text-gray-700 hover:bg-gray-50'
-                            }`
-                          }
-                        >
-                          <span className={`text-xl ${item.color} transition-colors`}>{item.icon}</span>
-                          {isSidebarExpanded && (
-                            <span className="font-medium whitespace-nowrap">{item.name}</span>
-                          )}
-                        </NavLink>
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
-              </aside>
+            {/* Navigation */}
+            <nav className="flex-1 overflow-y-auto p-4">
+              <ul className="space-y-3">
+                {navigation.map((item) => (
+                  <li key={item.path}>
+                    <NavLink
+                      to={item.path}
+                      className={({ isActive }) =>
+                        `flex items-center gap-4 px-4 py-3 rounded-lg transition-colors
+                        ${isActive
+                          ? 'bg-blue-50 text-blue-600 font-semibold'
+                          : 'text-gray-700 hover:bg-gray-50'
+                        }`
+                      }
+                      onClick={() => setSidebarExpanded(false)} // auto close on mobile
+                    >
+                      <span className={`text-xl ${item.color} transition-colors`}>{item.icon}</span>
+                      {isSidebarExpanded && (
+                        <span className="font-medium whitespace-nowrap">{item.name}</span>
+                      )}
+                    </NavLink>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </aside>
+          {/* Background Overlay (for mobile) */}
+{isSidebarExpanded && (
+  <div 
+    className="fixed inset-0 bg-black bg-opacity-40 z-30 lg:hidden"
+    onClick={() => setSidebarExpanded(false)}
+  ></div>
+)}
+
 
               {/* Main Content Area */}
-              <main className={`flex-1 flex flex-col min-h-screen transition-all duration-300 ease-in-out
-                ${isSidebarExpanded ? 'ml-72' : 'ml-20'} mobile:ml-0`}>
+             <main className={`flex-1 flex flex-col min-h-screen transition-all duration-300 ease-in-out
+  ${isSidebarExpanded ? 'ml-72' : 'ml-0'} lg:mt-0 mt-12`}>
+
                 <Header onLogout={handleLogout} userName={userName} />
 
                 {/* Content Area */}

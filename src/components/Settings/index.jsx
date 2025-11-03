@@ -5,8 +5,8 @@ import BasicSettings from './BasicSettings'
 import Utilities from './Utilities'
 
 const Settings = () => {
-  //const [activeTab, setActiveTab] = useState('basic') // old
-  const [activeTab, setActiveTab] = useState('utilities');
+  const [activeTab, setActiveTab] = useState('basic') // old
+  //const [activeTab, setActiveTab] = useState('utilities');
 
   const location = useLocation()
 
@@ -17,7 +17,7 @@ const Settings = () => {
   }, [location])
 
   const tabs = [
-    // { id: 'basic', label: 'Basic Settings' },
+    { id: 'basic', label: 'Basic Settings' },
     { id: 'utilities', label: 'Utilities' }
   ]
 
@@ -38,7 +38,7 @@ const Settings = () => {
 
       {/* Tab Content */}
       <div className="mt-4">
-        {/* {activeTab === 'basic' && <BasicSettings />} */}
+        {activeTab === 'basic' && <BasicSettings />}
         {activeTab === 'utilities' && <Utilities />}
       </div>
     </div>

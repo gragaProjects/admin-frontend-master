@@ -318,7 +318,7 @@ const Utilities = () => {
   return (
     <div className="space-y-6">
       {/* Speciality Card */}
-      {/* <div className="bg-white p-4 rounded-lg shadow-sm max-w-sm">
+      <div className="bg-white p-4 rounded-lg shadow-sm max-w-sm">
         <div className="flex justify-between items-center">
           <div>
             <h3 className="text-base font-medium text-gray-800">Speciality</h3>
@@ -331,10 +331,10 @@ const Utilities = () => {
             <FaEye />
           </button>
         </div>
-      </div> */}
+      </div>
 
       {/* Promo Code Card */}
-      {/* <div className="bg-white p-4 rounded-lg shadow-sm max-w-sm">
+      <div className="bg-white p-4 rounded-lg shadow-sm max-w-sm">
         <div className="flex justify-between items-center">
           <div>
             <h3 className="text-base font-medium text-gray-800">Promo Codes</h3>
@@ -347,7 +347,7 @@ const Utilities = () => {
             <FaEye />
           </button>
         </div>
-      </div> */}
+      </div>
 
       {/* Schools Card */}
       <div className="bg-white p-4 rounded-lg shadow-sm max-w-sm">
@@ -366,7 +366,7 @@ const Utilities = () => {
       </div>
 
       {/* Healthcare Providers Card */}
-      {/* <div className="bg-white p-4 rounded-lg shadow-sm max-w-sm">
+      <div className="bg-white p-4 rounded-lg shadow-sm max-w-sm">
         <div className="flex justify-between items-center">
           <div>
             <h3 className="text-base font-medium text-gray-800">Healthcare Providers</h3>
@@ -379,10 +379,10 @@ const Utilities = () => {
             <FaEye />
           </button>
         </div>
-      </div> */}
+      </div>
 
       {/* Packages Card */}
-      {/* <div className="bg-white p-4 rounded-lg shadow-sm max-w-sm">
+      <div className="bg-white p-4 rounded-lg shadow-sm max-w-sm">
         <div className="flex justify-between items-center">
           <div>
             <h3 className="text-base font-medium text-gray-800">Packages</h3>
@@ -395,7 +395,7 @@ const Utilities = () => {
             <FaEye />
           </button>
         </div>
-      </div> */}
+      </div>
 
       {/* Modals */}
       {activeModal === 'viewSpecialities' && (
