@@ -27,7 +27,7 @@ import Header from './components/common/Header'
 import SchoolManagement from './components/Settings/school/index.jsx'
 import HealthcareManagement from './components/Settings/healthcare/index.jsx'
 import PackagesManagement from './components/Settings/packages/index.jsx'
-import NewDoctors from './components/newdoctors/index.jsx';
+//import NewDoctors from './components/newdoctors/index.jsx';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -125,7 +125,7 @@ useEffect(() => {
     { name: 'Dashboard', path: '/', icon: <FaChartBar  style={{ color: iconColor }}/>, color: '' },//text-purple-500
     { name: 'Navigators', path: '/navigators', icon: <FaCompass  style={{ color: iconColor }}/>, color: '' },//text-blue-500
      { name: 'AH Doctors', path: '/doctors', icon: <FaUserMd />, color: 'text-green-500' },
-     { name: 'New Doctors', path: '/newdoctors', icon: <FaUserMd style={{ color: iconColor }} />, color: '' },
+   //  { name: 'New Doctors', path: '/newdoctors', icon: <FaUserMd style={{ color: iconColor }} />, color: '' },
 
      { name: 'Members', path: '/members', icon: <FaUsers  style={{ color: iconColor }} />, color: '' },//text-indigo-500
      { name: 'AHANA', path: '/ahana', icon: <FaStar  style={{ color: iconColor }} />, color: '' },//text-yellow-500
@@ -257,7 +257,7 @@ useEffect(() => {
                       <Route path="/settings/healthcare" element={<HealthcareManagement />} />
                       <Route path="/settings/packages" element={<ProtectedRoute><PackagesManagement /></ProtectedRoute>} />
                       {/* new doctor */}
-                      <Route path="/newdoctors" element={<ProtectedRoute><NewDoctors /></ProtectedRoute>} />  
+                      {/* <Route path="/newdoctors" element={<ProtectedRoute><NewDoctors /></ProtectedRoute>} />   */}
                     </Routes>
                   </div>
                 </div>
