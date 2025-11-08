@@ -47,7 +47,8 @@ const TimeSlotSection = ({
         {type === 'online' ? 'Online' : 'Offline'} Consultation Time Slots
       </h5>
       <div className="space-y-4">
-        {timeSlots.map((daySlot, dayIndex) => (
+        {(timeSlots || []).map((daySlot, dayIndex) => (
+        //{timeSlots.map((daySlot, dayIndex) => (
           <div key={dayIndex} className="bg-white p-4 rounded-lg shadow-sm">
             <div className="flex justify-between items-center mb-2">
               <h6 className="font-medium capitalize">{daySlot.day}</h6>

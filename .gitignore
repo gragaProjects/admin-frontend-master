@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+/src/components/backup
+/src/components/newdoctors/new change
+/src/components/newdoctors/static data
+/src/components/newdoctors/

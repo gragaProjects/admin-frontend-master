@@ -27,6 +27,7 @@ import Header from './components/common/Header'
 import SchoolManagement from './components/Settings/school/index.jsx'
 import HealthcareManagement from './components/Settings/healthcare/index.jsx'
 import PackagesManagement from './components/Settings/packages/index.jsx'
+import NewDoctors from './components/newdoctors/index.jsx';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -123,7 +124,9 @@ useEffect(() => {
   const navigation = [
     { name: 'Dashboard', path: '/', icon: <FaChartBar  style={{ color: iconColor }}/>, color: '' },//text-purple-500
     { name: 'Navigators', path: '/navigators', icon: <FaCompass  style={{ color: iconColor }}/>, color: '' },//text-blue-500
-    // { name: 'AH Doctors', path: '/doctors', icon: <FaUserMd />, color: 'text-green-500' },
+     { name: 'AH Doctors', path: '/doctors', icon: <FaUserMd />, color: 'text-green-500' },
+     { name: 'New Doctors', path: '/newdoctors', icon: <FaUserMd style={{ color: iconColor }} />, color: '' },
+
      { name: 'Members', path: '/members', icon: <FaUsers  style={{ color: iconColor }} />, color: '' },//text-indigo-500
      { name: 'AHANA', path: '/ahana', icon: <FaStar  style={{ color: iconColor }} />, color: '' },//text-yellow-500
     // { name: 'Empanelled Doctors', path: '/empanelled-doctors', icon: <FaHospital />, color: 'text-teal-500' },
@@ -156,11 +159,15 @@ useEffect(() => {
                 className={`flex bg-white shadow-lg flex-col fixed h-full transition-all duration-300 ease-in-out z-20
                   ${isSidebarExpanded ? 'w-72' : 'w-20'} mobile:hidden tablet:flex`}
               > */}
-            <aside 
+            {/* <aside 
             className={`fixed inset-y-0 left-0 z-40 bg-white shadow-lg flex flex-col transform transition-transform duration-300 ease-in-out
             ${isSidebarExpanded ? 'translate-x-0' : '-translate-x-full'}
             lg:translate-x-0 ${isSidebarExpanded ? 'w-72' : 'w-20'}`}
-          >
+          > */}
+           <aside 
+                className={`flex bg-white shadow-lg flex-col fixed h-full transition-all duration-300 ease-in-out z-20
+                  ${isSidebarExpanded ? 'w-72' : 'w-20'} mobile:hidden tablet:flex`}
+              > 
             {/* Logo Section */}
             <div className="p-2 sm:p-4 border-b flex items-center justify-between">
               {isSidebarExpanded ? (
@@ -191,7 +198,7 @@ useEffect(() => {
               <ul className="space-y-3">
                 {navigation.map((item) => (
                   <li key={item.path}>
-                    <NavLink
+                  <NavLink
                       to={item.path}
                       className={({ isActive }) =>
                         `flex items-center gap-4 px-4 py-3 rounded-lg transition-colors
@@ -200,13 +207,17 @@ useEffect(() => {
                           : 'text-gray-700 hover:bg-gray-50'
                         }`
                       }
-                      onClick={() => setSidebarExpanded(false)} // auto close on mobile
+                      onClick={() => {
+                        if (window.innerWidth < 1024) { // ✅ close only on mobile/tablet
+                          setSidebarExpanded(false);
+                        }
+                      }}
                     >
                       <span className={`text-xl ${item.color} transition-colors`}>{item.icon}</span>
                       {isSidebarExpanded && (
                         <span className="font-medium whitespace-nowrap">{item.name}</span>
                       )}
-                    </NavLink>
+                   </NavLink>
                   </li>
                 ))}
               </ul>
@@ -245,6 +256,8 @@ useEffect(() => {
                       <Route path="/settings/schools" element={<SchoolManagement />} />
                       <Route path="/settings/healthcare" element={<HealthcareManagement />} />
                       <Route path="/settings/packages" element={<ProtectedRoute><PackagesManagement /></ProtectedRoute>} />
+                      {/* new doctor */}
+                      <Route path="/newdoctors" element={<ProtectedRoute><NewDoctors /></ProtectedRoute>} />  
                     </Routes>
                   </div>
                 </div>
