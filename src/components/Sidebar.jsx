@@ -4,7 +4,7 @@ import { FaUsers } from 'react-icons/fa';
 const Sidebar = () => {
   return (
     <aside className="...">
-      {/* ... other sidebar items ... */}
+      {/* ... other sidebar items test ... */}
       <Link 
         to="/members" 
         className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100"
