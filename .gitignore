@@ -26,3 +26,4 @@ dist-ssr
 /src/components/newdoctors/new change
 /src/components/newdoctors/static data
 /src/components/newdoctors/
+.env

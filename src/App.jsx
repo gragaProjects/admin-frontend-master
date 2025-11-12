@@ -164,73 +164,73 @@ useEffect(() => {
             ${isSidebarExpanded ? 'translate-x-0' : '-translate-x-full'}
             lg:translate-x-0 ${isSidebarExpanded ? 'w-72' : 'w-20'}`}
           > */}
-           <aside 
+           {/* <aside 
                 className={`flex bg-white shadow-lg flex-col fixed h-full transition-all duration-300 ease-in-out z-20
                   ${isSidebarExpanded ? 'w-72' : 'w-20'} mobile:hidden tablet:flex`}
-              > 
-            {/* Logo Section */}
-            <div className="p-2 sm:p-4 border-b flex items-center justify-between">
-              {isSidebarExpanded ? (
-                <div className="flex items-center gap-2 sm:gap-3">
-                  <img 
-                    src="/assets/logo_new.png" 
-                    alt="AssistHealth" 
-                    className="h-50 w-100 object-contain"
-                  />
-                </div>
-              ) : (
-                <img 
-                  src="/assets/logo_new.png" 
-                  alt="AH" 
-                  className="h-8 w-8 sm:h-10 sm:w-10 object-contain"
-                />
-              )}
-              <button 
-                onClick={() => setSidebarExpanded(!isSidebarExpanded)}
-                className="p-1.5 sm:p-2 rounded-full hover:bg-gray-100 transition-colors hidden lg:flex"
-              >
-                {isSidebarExpanded ? <FaChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" /> : <FaChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />}
-              </button>
-            </div>
+              >  */}
+  <aside
+  className={`fixed inset-y-0 left-0 z-40 bg-white shadow-lg flex flex-col transition-all duration-300 ease-in-out
+    ${isSidebarExpanded ? "w-72" : "w-20"} 
+    ${isSidebarExpanded ? "translate-x-0" : "-translate-x-full"} 
+    lg:translate-x-0`}
+>
 
-            {/* Navigation */}
-            <nav className="flex-1 overflow-y-auto p-4">
-              <ul className="space-y-3">
-                {navigation.map((item) => (
-                  <li key={item.path}>
-                  <NavLink
-                      to={item.path}
-                      className={({ isActive }) =>
-                        `flex items-center gap-4 px-4 py-3 rounded-lg transition-colors
-                        ${isActive
-                          ? 'bg-blue-50 text-blue-600 font-semibold'
-                          : 'text-gray-700 hover:bg-gray-50'
-                        }`
-                      }
-                      onClick={() => {
-                        if (window.innerWidth < 1024) { // ✅ close only on mobile/tablet
-                          setSidebarExpanded(false);
-                        }
-                      }}
-                    >
-                      <span className={`text-xl ${item.color} transition-colors`}>{item.icon}</span>
-                      {isSidebarExpanded && (
-                        <span className="font-medium whitespace-nowrap">{item.name}</span>
-                      )}
-                   </NavLink>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </aside>
-          {/* Background Overlay (for mobile) */}
+  {/* ✅ Logo Section with Mobile Close Button */}
+  <div className="p-3 border-b flex items-center justify-between">
+    <img
+      src="/assets/logo_new.png"
+      alt="AssistHealth"
+      className={`${isSidebarExpanded ? "h-12 w-auto" : "h-10 w-10"} object-contain`}
+    />
+
+    {/* Desktop Collapse Toggle */}
+    <button
+      onClick={() => setSidebarExpanded(!isSidebarExpanded)}
+      className="p-2 rounded-full hover:bg-gray-100 transition hidden lg:block"
+    >
+      {isSidebarExpanded ? <FaChevronLeft /> : <FaChevronRight />}
+    </button>
+
+    {/* ✅ Mobile Close (X) Button */}
+    <button
+      onClick={() => setSidebarExpanded(false)}
+      className="p-2 rounded-full hover:bg-gray-100 transition lg:hidden"
+    >
+      ✖
+    </button>
+  </div>
+
+  {/* Navigation */}
+  <nav className="flex-1 overflow-y-auto px-3 py-5">
+    <ul className="space-y-2">
+      {navigation.map((item) => (
+        <li key={item.path}>
+          <NavLink
+            to={item.path}
+            className={({ isActive }) =>
+              `flex items-center gap-4 px-4 py-3 rounded-lg transition-colors
+              ${isActive ? "bg-blue-50 text-blue-600 font-semibold" : "text-gray-700 hover:bg-gray-50"}`
+            }
+            onClick={() => {
+              if (window.innerWidth < 1024) setSidebarExpanded(false);
+            }}
+          >
+            <span className="text-xl">{item.icon}</span>
+            {isSidebarExpanded && <span className="whitespace-nowrap">{item.name}</span>}
+          </NavLink>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</aside>
+
+{/* Overlay (for mobile only) */}
 {isSidebarExpanded && (
-  <div 
-    className="fixed inset-0 bg-black bg-opacity-40 z-30 lg:hidden"
+  <div
+    className="fixed inset-0 bg-black/40 z-30 lg:hidden"
     onClick={() => setSidebarExpanded(false)}
   ></div>
 )}
-
 
               {/* Main Content Area */}
              <main className={`flex-1 flex flex-col min-h-screen transition-all duration-300 ease-in-out
