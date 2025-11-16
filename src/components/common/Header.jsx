@@ -61,7 +61,12 @@ const Header = ({ onLogout }) => {
       '/blog': 'Blog',
       '/ecommerce': 'E-commerce',
       '/settings': 'Settings',
-      '/profile': 'Profile'
+      '/profile': 'Profile',
+      '/directory/hospitals': 'Hospitals',
+      '/directory/doctors': 'Doctors',
+      '/directory/diagnostics': 'Diagnostics',
+      '/directory/physiotherapy': 'Physiotherapy',
+      '/directory/homecare': 'Homecare',
     };
     
     return titles[path] || '';
