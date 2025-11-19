@@ -10,6 +10,7 @@ import AddressSection from './AddressSection'
 import TimeSlotSection from './TimeSlotSection'
 import IntroductionSection from './IntroductionSection'
 import DepartmentServiceSection from './DepartmentServiceSection';
+import { healthcareService } from "../../../../services/HealthcareService";
 // const AddEditDoctor = ({ onClose, initialData, isEditing, onSuccess }) => {
 //   const { showSnackbar } = useSnackbar();
 //   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -752,6 +753,67 @@ const AddEditHospital = ({ onClose, initialData, isEditing, onSuccess }) => {
     subServices: initialData?.subServices || [],
   });
 
+
+  ///NEw17.11.25
+
+  // ===============================
+  // DB DATA
+  // ===============================
+  const [departments, setDepartments] = useState([]);
+  const [services, setServices] = useState([]);
+  const [subServices, setSubServices] = useState([]);
+
+  // ===============================
+  // FETCH DEPARTMENTS
+  // ===============================
+  useEffect(() => {
+    (async () => {
+      const res = await healthcareService.getDepartments();
+      if (res.status === "success") setDepartments(res.data);
+    })();
+  }, []);
+
+  // ===============================
+  // WHEN DEPARTMENT CHANGES
+  // ===============================
+  const handleDepartment = async (deptId, deptName) => {
+    setFormData(prev => ({
+      ...prev,
+      department: [deptName],
+      services: [],
+      subServices: []
+    }));
+
+    const res = await healthcareService.getServicesByDepartment(deptId);
+    if (res.status === "success") setServices(res.data);
+
+    setSubServices([]);
+  };
+
+  // ===============================
+  // WHEN SERVICE CHANGES
+  // ===============================
+  const handleService = async (serviceId, serviceName) => {
+    setFormData(prev => ({
+      ...prev,
+      services: [serviceName],
+      subServices: []
+    }));
+
+    const res = await healthcareService.getSubServicesByService(serviceId);
+    if (res.status === "success") setSubServices(res.data);
+  };
+
+  // ===============================
+  // WHEN SUBSERVICE CHANGES
+  // ===============================
+  const handleSubService = (subName) => {
+    setFormData(prev => ({
+      ...prev,
+      subServices: [subName]
+    }));
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -773,76 +835,179 @@ const AddEditHospital = ({ onClose, initialData, isEditing, onSuccess }) => {
   // -----------------------------------
   // SUBMIT HANDLER
   // -----------------------------------
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     setIsSubmitting(true);
+
+  //     // -------------------------
+  //     // VALIDATION
+  //     // -------------------------
+  //     if (!formData.hospitalName.trim()) throw new Error("Hospital name is required");
+  //     if (!formData.email.trim()) throw new Error("Email is required");
+  //     if (!formData.phone || formData.phone.length !== 10) throw new Error("Valid phone required");
+  //     if (!formData.address.trim()) throw new Error("Address is required");
+  //     if (!formData.area.trim()) throw new Error("Area is required");
+  //     if (!formData.city.trim()) throw new Error("City is required");
+  //     if (!formData.state.trim()) throw new Error("State is required");
+  //     if (!formData.pincode || formData.pincode.length !== 6) throw new Error("Valid pincode required");
+
+  //     // ⭐ Department/services/subservices validation
+  //     if (formData.department.length === 0)
+  //       throw new Error("Please select at least one department");
+
+  //     if (formData.services.length === 0)
+  //       throw new Error("Please select at least one service");
+
+  //     // -----------------------------------
+  //     // FINAL DATA PAYLOAD (IMPORTANT)
+  //     // -----------------------------------
+  //     const data = {
+  //       hospitalName: formData.hospitalName,
+  //       email: formData.email,
+  //       phone: "+91" + formData.phone,
+  //       website: formData.website,
+  //       address: formData.address,
+  //       area: formData.area,
+  //       city: formData.city,
+  //       state: formData.state,
+  //       pincode: formData.pincode,
+  //       gstNumber: formData.gstNumber,
+
+  //       // ⭐ Required fields
+  //       department: formData.department,
+  //       services: formData.services,
+  //       subServices: formData.subServices,
+  //     };
+
+  //     console.log("SUBMITTING DATA:", data);
+
+  //     let response;
+  //     if (isEditing) {
+  //       response = await doctorsService.updateDoctor(initialData._id, data);
+  //     } else {
+  //       response = await doctorsService.createDoctor(data);
+  //     }
+
+  //     if (response && response.status === 'success') {
+  //       showSnackbar(isEditing ? "Hospital updated!" : "Hospital added!", 'success');
+  //       onSuccess?.();
+  //       onClose?.();
+  //     } else {
+  //       throw new Error(response?.message || "Failed to save");
+  //     }
+
+  //   } catch (err) {
+  //     console.error(err);
+  //     showSnackbar(err.message, "error");
+  //   } finally {
+  //     setIsSubmitting(false);
+  //   }
+  // };
+
+  // ===============================
+  // SUBMIT FORM
+  // ===============================
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     const payload = {
+  //       ...formData,
+  //       phone: "+91" + formData.phone
+  //     };
+
+  //     let res;
+  //     if (isEditing)
+  //       res = await healthcareService.updateHospital(initialData._id, payload);
+  //     else
+  //       res = await healthcareService.createHospital(payload);
+
+  //     if (res.status === "success") {
+  //       showSnackbar("Saved successfully", "success");
+  //       onSuccess?.();
+  //       onClose?.();
+  //     }
+  //   } catch (e) {
+  //     showSnackbar("Failed to save", "error");
+  //   }
+  // };
+
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      setIsSubmitting(true);
+  // SIMPLE REQUIRED VALIDATION
+  if (!formData.hospitalName) {
+    showSnackbar("Hospital Name is required", "error");
+    return;
+  }
+  if (!formData.email) {
+    showSnackbar("Email is required", "error");
+    return;
+  }
+  if (!formData.phone || formData.phone.length !== 10) {
+    showSnackbar("Valid 10-digit phone is required", "error");
+    return;
+  }
+  if (!formData.address) {
+    showSnackbar("Address is required", "error");
+    return;
+  }
+  if (!formData.area) {
+    showSnackbar("Area is required", "error");
+    return;
+  }
+  if (!formData.city) {
+    showSnackbar("City is required", "error");
+    return;
+  }
+  if (!formData.state) {
+    showSnackbar("State is required", "error");
+    return;
+  }
+  if (!formData.pincode || formData.pincode.length !== 6) {
+    showSnackbar("Valid 6-digit pincode is required", "error");
+    return;
+  }
 
-      // -------------------------
-      // VALIDATION
-      // -------------------------
-      if (!formData.hospitalName.trim()) throw new Error("Hospital name is required");
-      if (!formData.email.trim()) throw new Error("Email is required");
-      if (!formData.phone || formData.phone.length !== 10) throw new Error("Valid phone required");
-      if (!formData.address.trim()) throw new Error("Address is required");
-      if (!formData.area.trim()) throw new Error("Area is required");
-      if (!formData.city.trim()) throw new Error("City is required");
-      if (!formData.state.trim()) throw new Error("State is required");
-      if (!formData.pincode || formData.pincode.length !== 6) throw new Error("Valid pincode required");
+  // Dropdown validations
+  if (!formData.department.length) {
+    showSnackbar("Select Department", "error");
+    return;
+  }
+  if (!formData.services.length) {
+    showSnackbar("Select Service", "error");
+    return;
+  }
+  if (!formData.subServices.length) {
+    showSnackbar("Select Sub Service", "error");
+    return;
+  }
 
-      // ⭐ Department/services/subservices validation
-      if (formData.department.length === 0)
-        throw new Error("Please select at least one department");
+  // SUBMIT
+  try {
+    const payload = {
+      ...formData,
+      phone: "+91" + formData.phone
+    };
 
-      if (formData.services.length === 0)
-        throw new Error("Please select at least one service");
+    let res;
+    if (isEditing)
+      res = await healthcareService.updateHospital(initialData._id, payload);
+    else
+      res = await healthcareService.createHospital(payload);
 
-      // -----------------------------------
-      // FINAL DATA PAYLOAD (IMPORTANT)
-      // -----------------------------------
-      const data = {
-        hospitalName: formData.hospitalName,
-        email: formData.email,
-        phone: "+91" + formData.phone,
-        website: formData.website,
-        address: formData.address,
-        area: formData.area,
-        city: formData.city,
-        state: formData.state,
-        pincode: formData.pincode,
-        gstNumber: formData.gstNumber,
-
-        // ⭐ Required fields
-        department: formData.department,
-        services: formData.services,
-        subServices: formData.subServices,
-      };
-
-      console.log("SUBMITTING DATA:", data);
-
-      let response;
-      if (isEditing) {
-        response = await doctorsService.updateDoctor(initialData._id, data);
-      } else {
-        response = await doctorsService.createDoctor(data);
-      }
-
-      if (response && response.status === 'success') {
-        showSnackbar(isEditing ? "Hospital updated!" : "Hospital added!", 'success');
-        onSuccess?.();
-        onClose?.();
-      } else {
-        throw new Error(response?.message || "Failed to save");
-      }
-
-    } catch (err) {
-      console.error(err);
-      showSnackbar(err.message, "error");
-    } finally {
-      setIsSubmitting(false);
+    if (res.status === "success") {
+      showSnackbar("Saved successfully", "success");
+      onSuccess?.();
+      onClose?.();
     }
-  };
+  } catch (e) {
+    showSnackbar("Failed to save", "error");
+  }
+};
+
 
   // -----------------------------------
   // UI

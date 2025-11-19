@@ -1,5 +1,14 @@
-import api from './api';
 
+// 17.10.25
+// }; 
+import axios from "axios";
+
+const base = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api/v1` : '/api/v1';
+
+const api = axios.create({ baseURL: `${base}/doctors`, headers: { 'Content-Type': 'application/json' } });
+// 17.10.25
+const BASE = axios.create({ baseURL: `${base}/healthcaredoctors`, headers: { 'Content-Type': 'application/json' } });
+//const BASE = `${base}/healthcaredoctors`;
 export const doctorsService = {
   getAllDoctors: async () => {
     try {
@@ -278,5 +287,42 @@ export const doctorsService = {
       console.error('Error generating doctor profile PDF:', error);
       throw error;
     }
+  },
+
+
+  // 17.11.25
+   // Specialties
+  getSpecialties: () => BASE.get("/specialties/list").then(res => res.data),
+
+  // SubSpecialties by specialty
+  getSubSpecialties: (specialtyId) =>
+    BASE.get(`/subspecialties/${specialtyId}`).then(res => res.data),
+
+  // CRUD Doctors
+  getDoctors: (params = {}) =>
+    BASE.get("/", { params }).then(res => res.data),
+
+  getDoctorById: (id) =>
+    BASE.get(`/${id}`).then(res => res.data),
+
+  createDoctor: (data) =>
+    BASE.post("/", data).then(res => res.data),
+
+  updateDoctor: (id, data) =>
+    BASE.put(`/${id}`, data).then(res => res.data),
+
+  deleteDoctor: (id) =>
+    BASE.delete(`/${id}`).then(res => res.data),
+
+  // Upload photo
+  uploadPhoto: (file) => {
+    const fd = new FormData();
+    fd.append("photo", file);
+
+    return api.post("/upload", fd, {
+      headers: { "Content-Type": "multipart/form-data" }
+    }).then(res => res.data);
   }
-}; 
+};
+
+export default doctorsService;

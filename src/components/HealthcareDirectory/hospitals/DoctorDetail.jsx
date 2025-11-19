@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { FaTrash, FaEdit, FaTimes, FaUserCircle, FaSearch, FaDownload } from 'react-icons/fa'
+import { FaTrash, FaEdit, FaTimes, FaUserCircle, FaSearch, FaDownload  } from 'react-icons/fa'
 import ConfirmationDialog from './ConfirmationDialog'
 import AddEditHospital from './AddEditHospital'
 import { doctorsService } from '../../../services/doctorsService'
@@ -631,7 +631,8 @@ Email: ${doctor.email}
           )}
 
           {isEditing && (
-            <AddEditDoctor
+            <AddEditHospital
+
               onClose={() => setIsEditing(false)}
               initialData={doctor}
               isEditing={true}

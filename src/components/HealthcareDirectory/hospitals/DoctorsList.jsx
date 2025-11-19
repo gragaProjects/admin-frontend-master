@@ -1,6 +1,8 @@
-import { FaPlus, FaUserMd, FaUserCircle } from 'react-icons/fa'
+import { useState, useEffect } from 'react'
+import { FaPlus, FaUserMd, FaUserCircle,FaTrash, FaEdit,  } from 'react-icons/fa'
 import DoctorsFilter from './DoctorsFilter'
-
+import AddEditHospital from './AddEditHospital'
+import ConfirmationDialog from './ConfirmationDialog'
 const DoctorsList = ({
   doctors,
   isLoading,
@@ -10,8 +12,63 @@ const DoctorsList = ({
   pagination,
   currentPage,
   setCurrentPage,
-  onFilterChange
+  onFilterChange,
+  doctor
 }) => {
+
+    const [isEditing, setIsEditing] = useState(false);
+      const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
+    const handleEdit = () => {
+    const doctorData = {
+      _id: doctor._id,
+      name: doctor.name,
+      email: doctor.email,
+      phone: doctor.phone,
+      gender: doctor.gender,
+      qualification: doctor.qualification,
+      medicalCouncilRegistrationNumber: doctor.medicalCouncilRegistrationNumber,
+      experienceYears: doctor.experienceYears,
+      languagesSpoken: doctor.languagesSpoken,
+      serviceTypes: doctor.serviceTypes,
+      specializations: doctor.specializations,
+      introduction: doctor.introduction,
+      onlineConsultationTimeSlots: doctor.onlineConsultationTimeSlots,
+      offlineConsultationTimeSlots: doctor.offlineConsultationTimeSlots,
+      offlineAddress: doctor.offlineAddress,
+      areas: doctor.areas,
+      profilePic: doctor.profilePic,
+      digitalSignature: doctor.digitalSignature
+    };
+    setIsEditing(true);
+  };
+    const handleDelete = async () => {
+      try {
+        if (!doctor._id) {
+          showSnackbar('Invalid doctor ID. Please try again.', 'error');
+          return;
+        }
+        
+        setIsDeleting(true)
+        const response = await doctorsService.deleteDoctor(doctor._id)
+        console.log('Delete response:', response)
+        
+        // Check for success status in response
+        if (response && response.status === 'success') {
+          showSnackbar(response.message || 'Doctor deleted successfully!', 'success')
+          onDeleteSuccess()
+          onClose()
+        } else {
+          throw new Error(response?.message || 'Failed to delete doctor')
+        }
+      } catch (error) {
+        console.error('Error deleting doctor:', error)
+        showSnackbar(error.message || 'Failed to delete doctor', 'error')
+      } finally {
+        setIsDeleting(false)
+        setShowDeleteConfirm(false)
+      }
+    }
   return (
     <>
       <div className="flex flex-col gap-4 mb-6">
@@ -108,23 +165,65 @@ const DoctorsList = ({
 
                 {/* Actions */}
                 <div className="flex gap-3 mt-auto pt-4 border-t border-gray-100">
-                  <button
+                  {/* <button
                     onClick={() => onViewProfile(doctor)}
                     className="flex-1 px-4 py-2 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg text-sm font-medium transition-colors"
                   >
                     View Profile
-                  </button>
-                  <button
+                  </button> */}
+
+                  {/* New */}
+                   <button
+                      onClick={() => setIsEditing(true)}
+                      className="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    >
+                      <FaEdit className="w-4 h-4 mr-2" />
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => setShowDeleteConfirm(true)}
+                      className="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                    >
+                      <FaTrash className="w-4 h-4 mr-2" />
+                      Delete
+                    </button>
+                  {/* <button
                     onClick={() => onViewMembers(doctor)}
                     className="flex-1 px-4 py-2 bg-green-50 hover:bg-green-100 text-green-600 rounded-lg text-sm font-medium transition-colors"
                   >
                     View Members
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </div>
           ))}
         </div>
+
+          {showDeleteConfirm && (
+            <ConfirmationDialog
+              isOpen={showDeleteConfirm}
+              onClose={() => setShowDeleteConfirm(false)}
+              onConfirm={handleDelete}
+              title="Delete Hospital"
+              message="Are you sure you want to delete this hospital? This action cannot be undone."
+              isLoading={isDeleting}
+            />
+          )}
+
+
+          {isEditing && (
+            <AddEditHospital
+
+              onClose={() => setIsEditing(false)}
+              initialData={doctor}
+              isEditing={true}
+              onSuccess={() => {
+                setIsEditing(false);
+                onClose();
+                onDeleteSuccess(); // This will refresh the list
+              }}
+            />
+          )}
 
         {/* Pagination */}
         {!isLoading && doctors.length > 0 && (

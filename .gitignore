@@ -27,3 +27,6 @@ dist-ssr
 /src/components/newdoctors/static data
 /src/components/newdoctors/
 .env
+/src/components/HealthcareDirectory/backup/17.11.25/
+/src/components/HealthcareDirectory/doctors/AddEditDoctor/index copy.jsx
+/src/components/HealthcareDirectory/hospitals/AddEditHospital/index copy.jsx

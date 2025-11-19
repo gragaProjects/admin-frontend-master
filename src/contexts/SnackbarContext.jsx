@@ -14,7 +14,7 @@ export const SnackbarProvider = ({ children }) => {
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: '',
-    severity: 'info', // 'success', 'error', 'warning', 'info'
+    severity: 'info',
   });
 
   const showSnackbar = (message, severity = 'info') => {
@@ -24,10 +24,10 @@ export const SnackbarProvider = ({ children }) => {
       severity,
     });
 
-    // Auto hide after 5 seconds
+    // Auto close after 4 seconds
     setTimeout(() => {
       setSnackbar(prev => ({ ...prev, open: false }));
-    }, 5000);
+    }, 4000);
   };
 
   const hideSnackbar = () => {
@@ -37,24 +37,31 @@ export const SnackbarProvider = ({ children }) => {
   return (
     <SnackbarContext.Provider value={{ showSnackbar, hideSnackbar }}>
       {children}
-      {snackbar.open && (
-        <div
-          className={`fixed bottom-4 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-lg shadow-lg text-white ${
-            snackbar.severity === 'success' ? 'bg-green-500' :
-            snackbar.severity === 'error' ? 'bg-red-500' :
+
+      {/* Snackbar Modal */}
+      <div
+        className={`
+          fixed top-5 right-5 z-[9999]
+          px-6 py-3 rounded-lg shadow-lg text-white flex items-center
+          transition-opacity duration-300 
+          ${snackbar.open ? "opacity-100" : "opacity-0 pointer-events-none"}
+          ${
+            snackbar.severity === 'success' ? 'bg-green-600' :
+            snackbar.severity === 'error' ? 'bg-red-600' :
             snackbar.severity === 'warning' ? 'bg-yellow-500' :
-            'bg-blue-500'
-          }`}
+            'bg-blue-600'
+          }
+        `}
+      >
+        <span>{snackbar.message}</span>
+
+        <button
+          onClick={hideSnackbar}
+          className="ml-4 text-white hover:text-gray-200"
         >
-          {snackbar.message}
-          <button
-            onClick={hideSnackbar}
-            className="ml-4 text-white hover:text-gray-200"
-          >
-            ✕
-          </button>
-        </div>
-      )}
+          ✕
+        </button>
+      </div>
     </SnackbarContext.Provider>
   );
-}; 
+};

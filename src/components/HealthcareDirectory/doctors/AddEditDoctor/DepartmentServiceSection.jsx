@@ -169,36 +169,130 @@
 //     </div>
 //   );
 // }
+
+// static Darat
+// import React, { useState, useEffect } from "react";
+// import { DOCTOR_SPECIALTIES } from "../doctorsData";
+
+// export default function DepartmentServiceSection({ formData, setFormData }) {
+//   const [specialty, setSpecialty] = useState(formData.specialty || "");
+//   const [specializations, setSpecializations] = useState(
+//     formData.specializations || []
+//   );
+
+//   // Update formData
+//   useEffect(() => {
+//     setFormData((prev) => ({
+//       ...prev,
+//       specialty,
+//       specializations,
+//     }));
+//   }, [specialty, specializations]);
+
+//   const toggleSpecialization = (item) => {
+//     setSpecializations((prev) =>
+//       prev.includes(item)
+//         ? prev.filter((i) => i !== item)
+//         : [...prev, item]
+//     );
+//   };
+
+//   return (
+//     <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm mt-6">
+//       <h3 className="text-lg font-semibold text-gray-800 mb-4">
+//         Specialty & Specialization
+//       </h3>
+
+//       {/* Specialty */}
+//       <div className="mb-5">
+//         <label className="block text-sm font-medium text-gray-700 mb-1">
+//           Specialty *
+//         </label>
+
+//         <select
+//           value={specialty}
+//           onChange={(e) => {
+//             setSpecialty(e.target.value);
+//             setSpecializations([]); // reset when change specialty
+//           }}
+//           className="border border-gray-300 rounded-lg px-3 py-2 w-full"
+//         >
+//           <option value="">-- Select Specialty --</option>
+//           {Object.keys(DOCTOR_SPECIALTIES).map((spec) => (
+//             <option key={spec} value={spec}>
+//               {spec}
+//             </option>
+//           ))}
+//         </select>
+//       </div>
+
+//       {/* Specialization */}
+//       {specialty && (
+//         <div className="mb-5">
+//           <label className="block text-sm font-medium text-gray-700 mb-2">
+//             Specialization *
+//           </label>
+
+//           <div className="flex flex-wrap gap-3">
+//             {DOCTOR_SPECIALTIES[specialty].map((item) => (
+//               <label
+//                 key={item}
+//                 className={`flex items-center gap-2 border rounded-lg px-3 py-1.5 cursor-pointer ${
+//                   specializations.includes(item)
+//                     ? "bg-green-100 border-green-500 text-green-700"
+//                     : "border-gray-300 text-gray-700"
+//                 }`}
+//               >
+//                 <input
+//                   type="checkbox"
+//                   checked={specializations.includes(item)}
+//                   onChange={() => toggleSpecialization(item)}
+//                 />
+//                 {item}
+//               </label>
+//             ))}
+//           </div>
+//         </div>
+//       )}
+//     </div>
+//   );
+// }
+
 import React, { useState, useEffect } from "react";
-import { DOCTOR_SPECIALTIES } from "../doctorsData";
 
-export default function DepartmentServiceSection({ formData, setFormData }) {
-  const [specialty, setSpecialty] = useState(formData.specialty || "");
-  const [specializations, setSpecializations] = useState(
-    formData.specializations || []
-  );
+export default function DepartmentServiceSection({
+  formData,
+  setFormData,
+  specialties,
+  subSpecialties
+}) {
+  const [selectedSpec, setSelectedSpec] = useState(formData.specialty || "");
+  const [selectedSubs, setSelectedSubs] = useState(formData.specializations || []);
 
-  // Update formData
+  // Update parent formData
   useEffect(() => {
     setFormData((prev) => ({
       ...prev,
-      specialty,
-      specializations,
+      specialty: selectedSpec,
+      specializations: selectedSubs,
     }));
-  }, [specialty, specializations]);
+  }, [selectedSpec, selectedSubs]);
 
-  const toggleSpecialization = (item) => {
-    setSpecializations((prev) =>
-      prev.includes(item)
-        ? prev.filter((i) => i !== item)
-        : [...prev, item]
+  const toggleSub = (name) => {
+    setSelectedSubs((prev) =>
+      prev.includes(name) ? prev.filter((x) => x !== name) : [...prev, name]
     );
   };
+
+  // Filter sub specs linked to selected specialty
+  const filteredSubs = subSpecialties.filter(
+    (s) => s.specialtyId === selectedSpec || s.specialtyName === selectedSpec
+  );
 
   return (
     <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm mt-6">
       <h3 className="text-lg font-semibold text-gray-800 mb-4">
-        Specialty & Specialization
+        Specialty & Sub-Specialty
       </h3>
 
       {/* Specialty */}
@@ -208,45 +302,46 @@ export default function DepartmentServiceSection({ formData, setFormData }) {
         </label>
 
         <select
-          value={specialty}
+          value={selectedSpec}
           onChange={(e) => {
-            setSpecialty(e.target.value);
-            setSpecializations([]); // reset when change specialty
+            setSelectedSpec(e.target.value);
+            setSelectedSubs([]); // Reset subs on specialty change
           }}
           className="border border-gray-300 rounded-lg px-3 py-2 w-full"
         >
           <option value="">-- Select Specialty --</option>
-          {Object.keys(DOCTOR_SPECIALTIES).map((spec) => (
-            <option key={spec} value={spec}>
-              {spec}
+
+          {specialties.map((spec) => (
+            <option key={spec._id} value={spec.name}>
+              {spec.name}
             </option>
           ))}
         </select>
       </div>
 
-      {/* Specialization */}
-      {specialty && (
-        <div className="mb-5">
+      {/* Sub-Specialties */}
+      {selectedSpec && (
+        <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Specialization *
+            Sub-Specializations
           </label>
 
           <div className="flex flex-wrap gap-3">
-            {DOCTOR_SPECIALTIES[specialty].map((item) => (
+            {filteredSubs.map((sub) => (
               <label
-                key={item}
+                key={sub._id}
                 className={`flex items-center gap-2 border rounded-lg px-3 py-1.5 cursor-pointer ${
-                  specializations.includes(item)
+                  selectedSubs.includes(sub.name)
                     ? "bg-green-100 border-green-500 text-green-700"
                     : "border-gray-300 text-gray-700"
                 }`}
               >
                 <input
                   type="checkbox"
-                  checked={specializations.includes(item)}
-                  onChange={() => toggleSpecialization(item)}
+                  checked={selectedSubs.includes(sub.name)}
+                  onChange={() => toggleSub(sub.name)}
                 />
-                {item}
+                {sub.name}
               </label>
             ))}
           </div>
@@ -255,4 +350,3 @@ export default function DepartmentServiceSection({ formData, setFormData }) {
     </div>
   );
 }
-
