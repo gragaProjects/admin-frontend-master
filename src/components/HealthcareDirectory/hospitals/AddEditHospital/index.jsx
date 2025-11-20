@@ -10,7 +10,7 @@ import AddressSection from './AddressSection'
 import TimeSlotSection from './TimeSlotSection'
 import IntroductionSection from './IntroductionSection'
 import DepartmentServiceSection from './DepartmentServiceSection';
-import { healthcareService } from "../../../../services/HealthcareService";
+import { healthcareService } from "../../../../services/healthcareService";
 // const AddEditDoctor = ({ onClose, initialData, isEditing, onSuccess }) => {
 //   const { showSnackbar } = useSnackbar();
 //   const [isSubmitting, setIsSubmitting] = useState(false);
