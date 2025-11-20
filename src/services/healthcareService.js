@@ -120,7 +120,7 @@ const api = axios.create({
   headers: { "Content-Type": "application/json" }
 });
 
- const healthcareService = {
+export const healthcareService = {
   getDepartments: () => api.get("/departments").then(res => res.data),
   getServicesByDepartment: (deptId) => api.get(`/services/${deptId}`).then(res => res.data),
   getSubServicesByService: (serviceId) => api.get(`/subservices/${serviceId}`).then(res => res.data),
@@ -131,4 +131,3 @@ const api = axios.create({
   getHospitals: () => api.get("/hospitals").then(res => res.data),
   getHospitalById: (id) => api.get(`/hospitals/${id}`).then(res => res.data),
 };
-export default healthcareService;
