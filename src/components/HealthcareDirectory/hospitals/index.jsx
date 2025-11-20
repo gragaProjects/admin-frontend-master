@@ -212,7 +212,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import HospitalsList from "./HospitalsList";
 import AddEditHospital from "./AddEditHospital";
 import ConfirmationDialog from "../../common/ConfirmationDialog";
-//import { healthcareService } from "../../../services/healthcareService";
+import { healthcareService } from "../../../services/healthcareService";
 import { useSnackbar } from "../../../contexts/SnackbarContext";
 import { FaPlus } from "react-icons/fa";
 import DoctorsFilter from "./DoctorsFilter"; // reuse the doctors filter UI
